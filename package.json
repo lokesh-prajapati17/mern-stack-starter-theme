@@ -1,0 +1,30 @@
+{
+  "name": "custom-setup-mern",
+  "version": "1.0.0",
+  "description": "Production-grade Reusable MERN Starter Boilerplate with Modern Enterprise Design System, RBAC, and Modular Architecture",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "dev:client": "npm run dev --prefix client",
+    "dev:server": "npm run dev --prefix server",
+    "install:all": "npm install && npm install --prefix client && npm install --prefix server",
+    "build:client": "npm run build --prefix client"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "keywords": [
+    "mern",
+    "starter",
+    "boilerplate",
+    "react",
+    "express",
+    "mongodb",
+    "mui",
+    "enterprise",
+    "design-system",
+    "rbac",
+    "redux-toolkit"
+  ],
+  "author": "",
+  "license": "MIT"
+}

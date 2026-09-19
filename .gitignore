@@ -1,0 +1,108 @@
+# ==========================================
+# Dependencies (Root, Client, and Server)
+# ==========================================
+node_modules/
+*/node_modules/
+client/node_modules/
+server/node_modules/
+.pnp
+.pnp.js
+
+# ==========================================
+# Package Lock Files (Excluded for Client & Server)
+# ==========================================
+package-lock.json
+client/package-lock.json
+server/package-lock.json
+npm-shrinkwrap.json
+yarn.lock
+pnpm-lock.yaml
+
+# ==========================================
+# Logs & JSON Log Files
+# ==========================================
+logs/
+*.log
+*.log.*
+*.log.json
+log.json
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+client/npm-debug.log*
+server/npm-debug.log*
+
+# ==========================================
+# Environment Variables & Secrets
+# ==========================================
+.env
+.env.local
+.env.*.local
+*.env
+client/.env
+client/.env.local
+client/.env.development.local
+client/.env.test.local
+client/.env.production.local
+server/.env
+server/.env.local
+server/.env.development.local
+server/.env.test.local
+server/.env.production.local
+
+# Always commit example env files
+!.env.example
+!client/.env.example
+!server/.env.example
+
+# ==========================================
+# Production Builds & Bundles
+# ==========================================
+dist/
+dist-ssr/
+build/
+client/dist/
+client/build/
+*.local
+
+# ==========================================
+# Testing & Coverage
+# ==========================================
+coverage/
+client/coverage/
+server/coverage/
+.nyc_output/
+
+# ==========================================
+# Editor, IDE & System Files
+# ==========================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.sublime-project
+*.sublime-workspace
+
+# ==========================================
+# Temporary & Cache Files
+# ==========================================
+.eslintcache
+.stylelintcache
+.prettiercache
+.parcel-cache
+.turbo
+.cache/
+tmp/
+temp/
