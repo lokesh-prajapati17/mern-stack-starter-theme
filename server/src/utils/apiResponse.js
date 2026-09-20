@@ -1,9 +1,6 @@
-import { HTTP_STATUS } from "../constants/httpStatus.js";
+const { HTTP_STATUS } = require("../constants/httpStatus");
 
-/**
- * Send standard standardized JSON success response
- */
-export const sendSuccess = (
+const sendSuccess = (
   res,
   data = null,
   message = "Operation successful",
@@ -16,10 +13,7 @@ export const sendSuccess = (
   });
 };
 
-/**
- * Send standard standardized JSON error response
- */
-export const sendError = (
+const sendError = (
   res,
   message = "An error occurred",
   statusCode = HTTP_STATUS.INTERNAL_SERVER_ERROR,
@@ -35,4 +29,9 @@ export const sendError = (
   }
 
   return res.status(statusCode).json(response);
+};
+
+module.exports = {
+  sendSuccess,
+  sendError,
 };

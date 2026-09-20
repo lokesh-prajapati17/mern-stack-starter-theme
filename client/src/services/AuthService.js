@@ -1,25 +1,38 @@
-import axiosInstance from "./AxiosService";
+import ApiServices from "./ApiServices";
 import { API_ENDPOINTS } from "../constants/ApiConstants";
 
 export const AuthService = {
   login: (credentials) => {
-    return axiosInstance.post(API_ENDPOINTS.AUTH_LOGIN, credentials);
+    return ApiServices.callPostService(API_ENDPOINTS.AUTH_LOGIN, credentials);
   },
 
   register: (userData) => {
-    return axiosInstance.post(API_ENDPOINTS.AUTH_REGISTER, userData);
+    return ApiServices.callPostService(API_ENDPOINTS.AUTH_REGISTER, userData);
   },
 
   refreshToken: (refreshToken) => {
-    return axiosInstance.post(API_ENDPOINTS.AUTH_REFRESH, { refreshToken });
+    return ApiServices.callPostService(API_ENDPOINTS.AUTH_REFRESH, {
+      refreshToken,
+    });
   },
 
   getMe: () => {
-    return axiosInstance.get(API_ENDPOINTS.AUTH_ME);
+    return ApiServices.callGetService(API_ENDPOINTS.AUTH_ME);
+  },
+
+  updateProfile: (profileData) => {
+    return ApiServices.callPutService(API_ENDPOINTS.AUTH_PROFILE, profileData);
+  },
+
+  changePassword: (passwordData) => {
+    return ApiServices.callPutService(
+      API_ENDPOINTS.AUTH_CHANGE_PASSWORD,
+      passwordData,
+    );
   },
 
   logout: () => {
-    return axiosInstance.post(API_ENDPOINTS.AUTH_LOGOUT);
+    return ApiServices.callPostService(API_ENDPOINTS.AUTH_LOGOUT);
   },
 };
 

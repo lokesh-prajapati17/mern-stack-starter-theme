@@ -1,6 +1,11 @@
 import React, { forwardRef } from "react";
 import PropTypes from "prop-types";
-import { IconButton as MuiIconButton, Tooltip, Box } from "@mui/material";
+import {
+  IconButton as MuiIconButton,
+  Tooltip,
+  Box,
+  alpha,
+} from "@mui/material";
 
 export const IconButton = forwardRef(
   (
@@ -15,6 +20,15 @@ export const IconButton = forwardRef(
     },
     ref,
   ) => {
+    const isPaletteColor = [
+      "primary",
+      "secondary",
+      "error",
+      "warning",
+      "info",
+      "success",
+    ].includes(color);
+
     const button = (
       <MuiIconButton
         ref={ref}
@@ -23,6 +37,12 @@ export const IconButton = forwardRef(
         sx={{
           borderRadius: (theme) => theme.shape.borderRadius,
           transition: "background-color 0.15s ease, color 0.15s ease",
+          ...(isPaletteColor && {
+            color: (theme) => theme.palette[color].main,
+            "&:hover": {
+              backgroundColor: (theme) => alpha(theme.palette[color].main, 0.1),
+            },
+          }),
           ...sx,
         }}
         {...props}

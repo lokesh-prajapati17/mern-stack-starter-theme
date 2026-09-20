@@ -1,24 +1,18 @@
-import User from "../models/User.js";
-import {
+const User = require("./model");
+const {
   generateAccessToken,
   generateRefreshToken,
   verifyRefreshToken,
-} from "../utils/jwtUtils.js";
-import { sendSuccess, sendError } from "../utils/apiResponse.js";
-import { HTTP_STATUS } from "../constants/httpStatus.js";
-import { ROLES } from "../constants/roles.js";
-import { logger } from "../utils/logger.js";
+} = require("../../utils/jwtUtils");
+const { sendSuccess, sendError } = require("../../utils/apiResponse");
+const { HTTP_STATUS } = require("../../constants/httpStatus");
+const { ROLES } = require("../../constants/roles");
 
-/**
- * Register a new user
- * POST /api/auth/register
- */
-export const register = async (req, res) => {
+const register = async (req, res) => {
   const { name, email, password, role } = req.body;
 
   const existingUser = await User.findOne({ email: email.toLowerCase() });
   if (existingUser) {
-    logger.warn(`⚠️ [AUTH] Registration rejected: ${email} already exists`);
     return sendError(
       res,
       "User already exists with this email address",
@@ -26,7 +20,6 @@ export const register = async (req, res) => {
     );
   }
 
-  // Fallback / default role protection (cannot self-register as Admin unless specified in dev)
   const assignedRole =
     role && Object.values(ROLES).includes(role) ? role : ROLES.USER;
 
@@ -36,10 +29,6 @@ export const register = async (req, res) => {
     password,
     role: assignedRole,
   });
-
-  logger.info(
-    `👤 [AUTH] New user registered successfully: ${user.email} (${user.role}) [ID: ${user._id}]`,
-  );
 
   const payload = {
     id: user._id,
@@ -62,11 +51,7 @@ export const register = async (req, res) => {
   );
 };
 
-/**
- * Log in user & return tokens
- * POST /api/auth/login
- */
-export const login = async (req, res) => {
+const login = async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email: email.toLowerCase() }).select(
@@ -74,7 +59,6 @@ export const login = async (req, res) => {
   );
 
   if (!user || !(await user.matchPassword(password))) {
-    logger.warn(`⚠️ [AUTH] Failed login attempt for email: ${email}`);
     return sendError(
       res,
       "Invalid email or password credentials",
@@ -83,9 +67,6 @@ export const login = async (req, res) => {
   }
 
   if (user.status !== "Active") {
-    logger.warn(
-      `⚠️ [AUTH] Inactive account login attempt: ${email} (${user.status})`,
-    );
     return sendError(
       res,
       `Account is ${user.status.toLowerCase()}. Please contact support.`,
@@ -95,8 +76,6 @@ export const login = async (req, res) => {
 
   user.lastLogin = new Date();
   await user.save({ validateBeforeSave: false });
-
-  logger.info(`🔑 [AUTH] User logged in: ${user.email} (${user.role}) [ID: ${user._id}]`);
 
   const payload = {
     id: user._id,
@@ -118,11 +97,7 @@ export const login = async (req, res) => {
   );
 };
 
-/**
- * Refresh expired access token
- * POST /api/auth/refresh
- */
-export const refreshToken = async (req, res) => {
+const refreshToken = async (req, res) => {
   const { refreshToken: incomingToken } = req.body;
 
   if (!incomingToken) {
@@ -163,11 +138,7 @@ export const refreshToken = async (req, res) => {
   }
 };
 
-/**
- * Get current authenticated user profile
- * GET /api/auth/me
- */
-export const getMe = async (req, res) => {
+const getMe = async (req, res) => {
   const user = await User.findById(req.user.id);
   if (!user) {
     return sendError(res, "User not found", HTTP_STATUS.NOT_FOUND);
@@ -175,10 +146,69 @@ export const getMe = async (req, res) => {
   return sendSuccess(res, user, "Profile fetched successfully");
 };
 
-/**
- * Log out user
- * POST /api/auth/logout
- */
-export const logout = async (req, res) => {
+const updateProfile = async (req, res) => {
+  const { name, avatar } = req.body;
+  const user = await User.findById(req.user.id);
+  if (!user) {
+    return sendError(res, "User not found", HTTP_STATUS.NOT_FOUND);
+  }
+
+  if (name) user.name = name.trim();
+  if (avatar !== undefined) user.avatar = avatar;
+
+  await user.save();
+  return sendSuccess(res, user, "Profile updated successfully");
+};
+
+const changePassword = async (req, res) => {
+  const { currentPassword, newPassword } = req.body;
+
+  if (!currentPassword || !newPassword) {
+    return sendError(
+      res,
+      "Current password and new password are required",
+      HTTP_STATUS.BAD_REQUEST,
+    );
+  }
+
+  if (newPassword.length < 6) {
+    return sendError(
+      res,
+      "New password must be at least 6 characters long",
+      HTTP_STATUS.BAD_REQUEST,
+    );
+  }
+
+  const user = await User.findById(req.user.id).select("+password");
+  if (!user) {
+    return sendError(res, "User not found", HTTP_STATUS.NOT_FOUND);
+  }
+
+  const isMatch = await user.matchPassword(currentPassword);
+  if (!isMatch) {
+    return sendError(
+      res,
+      "Current password is incorrect",
+      HTTP_STATUS.BAD_REQUEST,
+    );
+  }
+
+  user.password = newPassword;
+  await user.save();
+
+  return sendSuccess(res, null, "Password changed successfully");
+};
+
+const logout = async (req, res) => {
   return sendSuccess(res, null, "Logged out successfully");
+};
+
+module.exports = {
+  register,
+  login,
+  refreshToken,
+  getMe,
+  updateProfile,
+  changePassword,
+  logout,
 };

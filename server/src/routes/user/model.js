@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
-import bcrypt from "bcryptjs";
-import { ROLES, USER_STATUS } from "../constants/roles.js";
+const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
+const { ROLES, USER_STATUS } = require("../../constants/roles");
 
 const BCRYPT_SALT_ROUNDS = 12;
 
@@ -79,13 +79,7 @@ const UserSchema = new mongoose.Schema(
   },
 );
 
-/**
- * Pre-Save Middleware: Secure Password Hashing
- * In modern Mongoose (v8/v9+), async middleware returns a Promise natively.
- * Do not accept or call next() inside async hooks.
- */
 UserSchema.pre("save", async function () {
-  // Only hash password if it has been modified or is new
   if (!this.isModified("password") || !this.password) {
     return;
   }
@@ -94,22 +88,11 @@ UserSchema.pre("save", async function () {
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-/**
- * Instance Method: Compare candidate password with stored hash
- * @param {string} candidatePassword
- * @returns {Promise<boolean>}
- */
 UserSchema.methods.matchPassword = async function (candidatePassword) {
   if (!this.password || !candidatePassword) return false;
   return await bcrypt.compare(candidatePassword, this.password);
 };
 
-/**
- * Static Helper: Check if an email is already registered
- * @param {string} email
- * @param {string|ObjectId} [excludeUserId]
- * @returns {Promise<boolean>}
- */
 UserSchema.statics.isEmailTaken = async function (email, excludeUserId) {
   const query = { email: email.toLowerCase() };
   if (excludeUserId) {
@@ -119,6 +102,6 @@ UserSchema.statics.isEmailTaken = async function (email, excludeUserId) {
   return count > 0;
 };
 
-const User = mongoose.model("User", UserSchema);
+const User = mongoose.models.User || mongoose.model("User", UserSchema);
 
-export default User;
+module.exports = User;

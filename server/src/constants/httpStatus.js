@@ -1,7 +1,4 @@
-/**
- * HTTP Status Codes and Error Keys
- */
-export const HTTP_STATUS = {
+const HTTP_STATUS = {
   OK: 200,
   CREATED: 201,
   ACCEPTED: 202,
@@ -13,4 +10,8 @@ export const HTTP_STATUS = {
   CONFLICT: 409,
   UNPROCESSABLE_ENTITY: 422,
   INTERNAL_SERVER_ERROR: 500,
+};
+
+module.exports = {
+  HTTP_STATUS,
 };

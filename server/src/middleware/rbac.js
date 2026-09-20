@@ -1,12 +1,7 @@
-import { HTTP_STATUS } from "../constants/httpStatus.js";
-import { sendError } from "../utils/apiResponse.js";
+const { HTTP_STATUS } = require("../constants/httpStatus");
+const { sendError } = require("../utils/apiResponse");
 
-/**
- * Role-Based Access Control (RBAC) Guard Middleware
- * Usage: checkRole('Admin', 'Manager')
- * @param  {...string} allowedRoles
- */
-export const checkRole = (...allowedRoles) => {
+const checkRole = (...allowedRoles) => {
   return (req, res, next) => {
     if (!req.user) {
       return sendError(
@@ -28,4 +23,8 @@ export const checkRole = (...allowedRoles) => {
 
     next();
   };
+};
+
+module.exports = {
+  checkRole,
 };

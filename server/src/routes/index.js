@@ -1,10 +1,9 @@
-import express from "express";
-import authRoutes from "./authRoutes.js";
-import userRoutes from "./userRoutes.js";
+const express = require("express");
+const authModule = require("./auth");
+const userModule = require("./user");
 
 const router = express.Router();
 
-// Health Check API
 router.get("/health", (req, res) => {
   res.status(200).json({
     status: "online",
@@ -16,8 +15,7 @@ router.get("/health", (req, res) => {
   });
 });
 
-// Mount Sub-routers
-router.use("/auth", authRoutes);
-router.use("/users", userRoutes);
+router.use("/auth", authModule.routes);
+router.use("/users", userModule.routes);
 
-export default router;
+module.exports = router;

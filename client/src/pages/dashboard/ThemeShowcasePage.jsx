@@ -45,6 +45,13 @@ import {
   AppAreaChart,
   AppBarChart,
   AppDonutChart,
+  // ── Form Engine & Multi-Step Wizard ──
+  DynamicForm,
+  FormWizard,
+  userProfileSchema,
+  wizardStep1Schema,
+  wizardStep2Schema,
+  wizardStep3Schema,
 } from "../../components/common";
 import { MotionFadeIn } from "../../components/common/Motion";
 
@@ -81,6 +88,7 @@ export const ThemeShowcasePage = () => {
   const [activeStep, setActiveStep] = useState(1);
   const [sidePanelOpen, setSidePanelOpen] = useState(false);
   const [droppedFiles, setDroppedFiles] = useState([]);
+  const [dynamicFormSubmitted, setDynamicFormSubmitted] = useState(null);
 
   const selectOptions = [
     { value: "active", label: "Active State" },
@@ -439,6 +447,239 @@ export const ThemeShowcasePage = () => {
           />
         </CardBox>
 
+        {/* ── Schema-Driven Dynamic Form Engine (Full Width) ────────────────────────── */}
+        <Box sx={{ gridColumn: "1 / -1" }}>
+          <CardBox
+            title="Declarative Dynamic Form Engine"
+            subtitle="Schema-driven form generation with instant Yup validation, auto-layout, and Formik state"
+            divider
+          >
+            {dynamicFormSubmitted && (
+              <AlertBanner
+                severity="success"
+                sx={{ mb: 2.5 }}
+                onClose={() => setDynamicFormSubmitted(null)}
+              >
+                Profile successfully validated & updated: {dynamicFormSubmitted.name} ({dynamicFormSubmitted.email}) — Role: {dynamicFormSubmitted.role}
+              </AlertBanner>
+            )}
+            <DynamicForm
+              fields={[
+                {
+                  name: "name",
+                  label: "Full Name",
+                  type: "text",
+                  required: true,
+                  grid: { xs: 12, sm: 6 },
+                  placeholder: "Alex Vance",
+                },
+                {
+                  name: "email",
+                  label: "Work Email",
+                  type: "email",
+                  required: true,
+                  grid: { xs: 12, sm: 6 },
+                  placeholder: "alex.vance@company.io",
+                },
+                {
+                  name: "role",
+                  label: "Platform Role",
+                  type: "select",
+                  required: true,
+                  grid: { xs: 12, sm: 6 },
+                  options: [
+                    { value: "Admin", label: "Admin" },
+                    { value: "Manager", label: "Manager" },
+                    { value: "User", label: "User" },
+                  ],
+                },
+                {
+                  name: "phone",
+                  label: "Phone Number",
+                  type: "text",
+                  grid: { xs: 12, sm: 6 },
+                  placeholder: "+1 (555) 000-0000",
+                },
+                {
+                  name: "bio",
+                  label: "Biography",
+                  type: "textarea",
+                  grid: { xs: 12 },
+                  placeholder: "Brief executive summary...",
+                  rows: 3,
+                },
+                {
+                  name: "notifications",
+                  label: "Email Notifications",
+                  description: "Receive instant updates on team activity and security alerts",
+                  type: "switch",
+                  grid: { xs: 12 },
+                },
+              ]}
+              validationSchema={userProfileSchema}
+              initialValues={{
+                name: "Alex Vance",
+                email: "alex.vance@company.io",
+                phone: "+1 (555) 123-4567",
+                role: "Admin",
+                bio: "Lead Systems Architect & Enterprise Theme Specialist",
+                notifications: true,
+              }}
+              onSubmit={(values, { setSubmitting }) => {
+                setDynamicFormSubmitted(values);
+                setSubmitting(false);
+              }}
+              submitLabel="Save via Dynamic Form"
+              showReset
+            />
+          </CardBox>
+        </Box>
+
+        {/* ── Enterprise Multi-Step Form Wizard (Full Width) ────────────────────────── */}
+        <Box sx={{ gridColumn: "1 / -1" }}>
+          <CardBox
+            title="Enterprise Multi-Step Form Wizard"
+            subtitle="Multi-step progression with strict per-step Yup validation, step progress bar, and state persistence"
+            divider
+          >
+            <FormWizard
+              steps={[
+                {
+                  id: "company",
+                  label: "Company Details",
+                  description: "Tell us about your organization and work email",
+                  validationSchema: wizardStep1Schema,
+                  fields: [
+                    {
+                      name: "companyName",
+                      label: "Company Name",
+                      type: "text",
+                      required: true,
+                      grid: { xs: 12, sm: 6 },
+                      placeholder: "Acme Corp",
+                    },
+                    {
+                      name: "workEmail",
+                      label: "Work Email",
+                      type: "email",
+                      required: true,
+                      grid: { xs: 12, sm: 6 },
+                      placeholder: "contact@acme.com",
+                    },
+                    {
+                      name: "teamSize",
+                      label: "Team Size",
+                      type: "select",
+                      required: true,
+                      grid: { xs: 12 },
+                      options: [
+                        { value: "1-10", label: "1 - 10 employees" },
+                        { value: "11-50", label: "11 - 50 employees" },
+                        { value: "51-200", label: "51 - 200 employees" },
+                        { value: "201+", label: "201+ enterprise" },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  id: "role",
+                  label: "Role & Goals",
+                  description: "Define your departmental focus and primary objective",
+                  validationSchema: wizardStep2Schema,
+                  fields: [
+                    {
+                      name: "roleTitle",
+                      label: "Job Title",
+                      type: "text",
+                      required: true,
+                      grid: { xs: 12, sm: 6 },
+                      placeholder: "Head of Product",
+                    },
+                    {
+                      name: "department",
+                      label: "Department",
+                      type: "select",
+                      required: true,
+                      grid: { xs: 12, sm: 6 },
+                      options: [
+                        { value: "engineering", label: "Engineering & Tech" },
+                        { value: "product", label: "Product & Design" },
+                        { value: "finance", label: "Finance & Operations" },
+                        { value: "marketing", label: "Marketing & Growth" },
+                      ],
+                    },
+                    {
+                      name: "primaryGoal",
+                      label: "Primary Goal",
+                      type: "select",
+                      required: true,
+                      grid: { xs: 12 },
+                      options: [
+                        { value: "build_app", label: "Build enterprise dashboard from boilerplate" },
+                        { value: "team_portal", label: "Internal employee management system" },
+                        { value: "saas_mvp", label: "Rapid SaaS MVP launch" },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  id: "plan",
+                  label: "Plan & Confirmation",
+                  description: "Select subscription tier and finalize registration",
+                  validationSchema: wizardStep3Schema,
+                  fields: [
+                    {
+                      name: "plan",
+                      label: "Subscription Tier",
+                      type: "select",
+                      required: true,
+                      grid: { xs: 12, sm: 6 },
+                      options: [
+                        { value: "starter", label: "Starter (Free Tier)" },
+                        { value: "pro", label: "Professional ($49/mo)" },
+                        { value: "enterprise", label: "Enterprise Custom" },
+                      ],
+                    },
+                    {
+                      name: "billingCycle",
+                      label: "Billing Cycle",
+                      type: "select",
+                      required: true,
+                      grid: { xs: 12, sm: 6 },
+                      options: [
+                        { value: "monthly", label: "Monthly Billing" },
+                        { value: "annual", label: "Annual Billing (20% Off)" },
+                      ],
+                    },
+                    {
+                      name: "agreePolicies",
+                      label: "I confirm all details are accurate and accept platform policies",
+                      type: "checkbox",
+                      grid: { xs: 12 },
+                    },
+                  ],
+                },
+              ]}
+              initialValues={{
+                companyName: "Acme Innovations",
+                workEmail: "admin@acme.io",
+                teamSize: "11-50",
+                roleTitle: "Staff Software Engineer",
+                department: "engineering",
+                primaryGoal: "build_app",
+                plan: "pro",
+                billingCycle: "annual",
+                agreePolicies: true,
+              }}
+              onSubmit={async () => {
+                await new Promise((resolve) => setTimeout(resolve, 600));
+              }}
+              submitLabel="Complete Onboarding"
+              completedMessage="Your enterprise organization and workspace configuration have been successfully initialized!"
+            />
+          </CardBox>
+        </Box>
+
         {/* ── Modals & Dialogs ─────────────────────────────────────────── */}
         <CardBox
           title="Modal, Confirm Dialog & Side Panel"
@@ -606,49 +847,96 @@ export const ThemeShowcasePage = () => {
         confirmText="Yes, Delete"
       />
 
-      {/* Side Panel */}
+      {/* Side Panel with Dynamic Form Engine */}
       <SidePanel
         open={sidePanelOpen}
         onClose={() => setSidePanelOpen(false)}
         title="User Details"
-        subtitle="View and edit user profile information"
-        footer={
-          <>
-            <Button variant="outlined" color="secondary" size="small" onClick={() => setSidePanelOpen(false)}>
-              Cancel
-            </Button>
-            <Button variant="contained" color="primary" size="small" onClick={() => setSidePanelOpen(false)}>
-              Save Changes
-            </Button>
-          </>
-        }
+        subtitle="View and edit user profile with real-time Yup validation"
       >
-        <Stack spacing={2.5}>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-            <Avatar name="Alex Vance" size={56} status="online" />
-            <Box>
-              <Typography variant="subtitle1" fontWeight={700}>Alex Vance</Typography>
-              <Typography variant="caption" color="text.secondary">alex.vance@company.io</Typography>
-            </Box>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2.5 }}>
+          <Avatar name="Alex Vance" size={56} status="online" />
+          <Box>
+            <Typography variant="subtitle1" fontWeight={700}>
+              Alex Vance
+            </Typography>
+            <Typography variant="caption" color="text.secondary">
+              alex.vance@company.io
+            </Typography>
           </Box>
-          <Divider />
-          <TextInput label="Full Name" defaultValue="Alex Vance" />
-          <TextInput label="Email" defaultValue="alex.vance@company.io" />
-          <SelectInput
-            label="Role"
-            value="admin"
-            options={[
-              { value: "admin", label: "Admin" },
-              { value: "manager", label: "Manager" },
-              { value: "user", label: "User" },
-            ]}
-          />
-          <Divider />
-          <SectionLabel>Assigned Tags</SectionLabel>
-          <TagList tags={["Admin", "Finance", "Engineering"]} color="primary" />
-          <SectionLabel>Progress</SectionLabel>
-          <ProgressBar label="Profile Completion" value={80} color="success" />
-        </Stack>
+        </Box>
+        <Divider sx={{ mb: 2.5 }} />
+
+        <DynamicForm
+          fields={[
+            {
+              name: "name",
+              label: "Full Name",
+              type: "text",
+              required: true,
+              grid: { xs: 12 },
+              placeholder: "Alex Vance",
+            },
+            {
+              name: "email",
+              label: "Email",
+              type: "email",
+              required: true,
+              grid: { xs: 12 },
+              placeholder: "alex.vance@company.io",
+            },
+            {
+              name: "role",
+              label: "Role",
+              type: "select",
+              required: true,
+              grid: { xs: 12 },
+              options: [
+                { value: "Admin", label: "Admin" },
+                { value: "Manager", label: "Manager" },
+                { value: "User", label: "User" },
+              ],
+            },
+            {
+              name: "phone",
+              label: "Phone",
+              type: "text",
+              grid: { xs: 12 },
+              placeholder: "+1 555 000 0000",
+            },
+          ]}
+          validationSchema={userProfileSchema}
+          initialValues={{
+            name: "Alex Vance",
+            email: "alex.vance@company.io",
+            role: "Admin",
+            phone: "+1 555 123 4567",
+          }}
+          onSubmit={(values) => {
+            setSidePanelOpen(false);
+          }}
+          submitLabel="Save Changes"
+          cancelLabel="Cancel"
+          onCancel={() => setSidePanelOpen(false)}
+        >
+          <Box sx={{ my: 2 }}>
+            <SectionLabel>Assigned Tags</SectionLabel>
+            <TagList
+              tags={["Admin", "Finance", "Engineering"]}
+              color="primary"
+              sx={{ mt: 1 }}
+            />
+          </Box>
+          <Box sx={{ mb: 1 }}>
+            <SectionLabel>Progress</SectionLabel>
+            <ProgressBar
+              label="Profile Completion"
+              value={80}
+              color="success"
+              sx={{ mt: 1 }}
+            />
+          </Box>
+        </DynamicForm>
       </SidePanel>
     </MotionFadeIn>
   );

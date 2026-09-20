@@ -6,7 +6,6 @@ import {
   HTTP_STATUS,
 } from "../constants/KeyConstants";
 
-// Create configured Axios instance
 const axiosInstance = axios.create({
   baseURL: BASE_API_URL,
   timeout: 30000,
@@ -55,7 +54,6 @@ export const clearAuthStorage = () => {
   }
 };
 
-// Request Interceptor: Attach Bearer JWT
 axiosInstance.interceptors.request.use(
   (config) => {
     try {
@@ -78,7 +76,6 @@ axiosInstance.interceptors.request.use(
   (error) => Promise.reject(error),
 );
 
-// Response Interceptor: Seamless 401 Refresh Queue + Error Normalization
 axiosInstance.interceptors.response.use(
   (response) => response.data,
   async (error) => {

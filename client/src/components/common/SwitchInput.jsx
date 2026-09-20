@@ -34,12 +34,16 @@ export const SwitchInput = forwardRef(
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            py: 0.75,
+            p: 2,
+            borderRadius: (theme) => `${theme.shape.borderRadius}px`,
+            border: (theme) => `1px solid ${theme.palette.divider}`,
+            bgcolor: "action.hover",
+            transition: "border-color 0.15s ease, background-color 0.15s ease",
             ...sx,
           }}
         >
-          <Box>
-            <Typography variant="subtitle2" fontWeight={600}>
+          <Box sx={{ mr: 2 }}>
+            <Typography variant="subtitle2" fontWeight={600} color="text.primary">
               {label}
             </Typography>
             <Typography variant="caption" color="text.secondary">

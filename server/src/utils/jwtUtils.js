@@ -1,33 +1,24 @@
-import jwt from "jsonwebtoken";
-import { ENV } from "../config/environment.js";
+const jwt = require("jsonwebtoken");
+const { ENV } = require("../config/environment");
 
-/**
- * Generate Access Token
- * @param {object} payload
- * @returns {string}
- */
-export const generateAccessToken = (payload) => {
+const generateAccessToken = (payload) => {
   return jwt.sign(payload, ENV.JWT_SECRET, {
     expiresIn: ENV.JWT_EXPIRE,
   });
 };
 
-/**
- * Generate Refresh Token
- * @param {object} payload
- * @returns {string}
- */
-export const generateRefreshToken = (payload) => {
+const generateRefreshToken = (payload) => {
   return jwt.sign(payload, ENV.JWT_REFRESH_SECRET, {
     expiresIn: ENV.JWT_REFRESH_EXPIRE,
   });
 };
 
-/**
- * Verify Refresh Token
- * @param {string} token
- * @returns {object}
- */
-export const verifyRefreshToken = (token) => {
+const verifyRefreshToken = (token) => {
   return jwt.verify(token, ENV.JWT_REFRESH_SECRET);
+};
+
+module.exports = {
+  generateAccessToken,
+  generateRefreshToken,
+  verifyRefreshToken,
 };

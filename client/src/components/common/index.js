@@ -14,6 +14,7 @@ export { default as EmptyState } from "./EmptyState";
 export { default as Pagination } from "./Pagination";
 export { default as DataTable } from "./DataTable";
 export { default as Loadable } from "./Loadable";
+export { default as ErrorBoundary } from "./ErrorBoundary";
 export { MotionFadeIn, MotionSlideUp, MotionScale } from "./Motion";
 
 // ── New Production Atoms ──────────────────────────────────────────────────────
@@ -35,3 +36,6 @@ export { default as AppLineChart } from "./LineChart";
 export { default as AppAreaChart } from "./AreaChart";
 export { default as AppBarChart } from "./BarChart";
 export { default as AppDonutChart } from "./DonutChart";
+
+// ── Dynamic Form Engine & Multi-Step Wizard ──────────────────────────────────
+export * from "../form";

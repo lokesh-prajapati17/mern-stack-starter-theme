@@ -1,11 +1,8 @@
-import mongoose from "mongoose";
-import { ENV } from "./environment.js";
-import { logger } from "../utils/logger.js";
+const mongoose = require("mongoose");
+const { ENV } = require("./environment");
+const { logger } = require("../utils/logger");
 
-/**
- * Connect to MongoDB database
- */
-export const connectDB = async () => {
+const connectDB = async () => {
   try {
     const conn = await mongoose.connect(ENV.MONGO_URI, {
       serverSelectionTimeoutMS: 5000,
@@ -28,3 +25,7 @@ mongoose.connection.on("disconnected", () => {
 mongoose.connection.on("reconnected", () => {
   logger.info("✅ MongoDB reconnected.");
 });
+
+module.exports = {
+  connectDB,
+};

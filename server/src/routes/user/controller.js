@@ -1,12 +1,8 @@
-import User from "../models/User.js";
-import { sendSuccess, sendError } from "../utils/apiResponse.js";
-import { HTTP_STATUS } from "../constants/httpStatus.js";
+const User = require("./model");
+const { sendSuccess, sendError } = require("../../utils/apiResponse");
+const { HTTP_STATUS } = require("../../constants/httpStatus");
 
-/**
- * Get paginated list of users (Admin/Manager)
- * GET /api/users
- */
-export const getUsers = async (req, res) => {
+const getUsers = async (req, res) => {
   const page = parseInt(req.query.page, 10) || 1;
   const limit = parseInt(req.query.limit, 10) || 10;
   const skip = (page - 1) * limit;
@@ -38,11 +34,7 @@ export const getUsers = async (req, res) => {
   });
 };
 
-/**
- * Get single user by ID
- * GET /api/users/:id
- */
-export const getUserById = async (req, res) => {
+const getUserById = async (req, res) => {
   const user = await User.findById(req.params.id);
   if (!user) {
     return sendError(res, "User not found", HTTP_STATUS.NOT_FOUND);
@@ -50,11 +42,7 @@ export const getUserById = async (req, res) => {
   return sendSuccess(res, user);
 };
 
-/**
- * Update user details (Admin only or user self-edit)
- * PUT /api/users/:id
- */
-export const updateUser = async (req, res) => {
+const updateUser = async (req, res) => {
   const { name, role, status, avatar } = req.body;
   const user = await User.findById(req.params.id);
 
@@ -62,7 +50,6 @@ export const updateUser = async (req, res) => {
     return sendError(res, "User not found", HTTP_STATUS.NOT_FOUND);
   }
 
-  // Only Admins can change roles or status
   if (req.user.role !== "Admin" && (role || status)) {
     return sendError(
       res,
@@ -81,18 +68,13 @@ export const updateUser = async (req, res) => {
   return sendSuccess(res, user, "User updated successfully");
 };
 
-/**
- * Delete user (Admin only)
- * DELETE /api/users/:id
- */
-export const deleteUser = async (req, res) => {
+const deleteUser = async (req, res) => {
   const user = await User.findById(req.params.id);
 
   if (!user) {
     return sendError(res, "User not found", HTTP_STATUS.NOT_FOUND);
   }
 
-  // Prevent self-deletion of admin
   if (user._id.toString() === req.user.id) {
     return sendError(
       res,
@@ -104,4 +86,11 @@ export const deleteUser = async (req, res) => {
   await user.deleteOne();
 
   return sendSuccess(res, null, "User deleted successfully");
+};
+
+module.exports = {
+  getUsers,
+  getUserById,
+  updateUser,
+  deleteUser,
 };

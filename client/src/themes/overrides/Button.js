@@ -93,10 +93,48 @@ export const Button = (theme) => {
         root: {
           borderRadius: 8,
           transition: "all 0.2s ease-in-out",
+        },
+        colorDefault: {
           color: theme.palette.text.secondary,
           "&:hover": {
             color: theme.palette.text.primary,
             backgroundColor: theme.palette.action.hover,
+          },
+        },
+        colorPrimary: {
+          color: theme.palette.primary.main,
+          "&:hover": {
+            backgroundColor: alpha(theme.palette.primary.main, 0.08),
+          },
+        },
+        colorSecondary: {
+          color: theme.palette.secondary.main,
+          "&:hover": {
+            backgroundColor: alpha(theme.palette.secondary.main, 0.08),
+          },
+        },
+        colorSuccess: {
+          color: theme.palette.success.main,
+          "&:hover": {
+            backgroundColor: alpha(theme.palette.success.main, 0.08),
+          },
+        },
+        colorError: {
+          color: theme.palette.error.main,
+          "&:hover": {
+            backgroundColor: alpha(theme.palette.error.main, 0.08),
+          },
+        },
+        colorWarning: {
+          color: theme.palette.warning.main,
+          "&:hover": {
+            backgroundColor: alpha(theme.palette.warning.main, 0.08),
+          },
+        },
+        colorInfo: {
+          color: theme.palette.info.main,
+          "&:hover": {
+            backgroundColor: alpha(theme.palette.info.main, 0.08),
           },
         },
       },

@@ -1,8 +1,8 @@
-import dotenv from "dotenv";
+const dotenv = require("dotenv");
 
 dotenv.config();
 
-export const ENV = {
+const ENV = {
   PORT: process.env.PORT || 5005,
   NODE_ENV: process.env.NODE_ENV || "development",
   CLIENT_URL:
@@ -15,4 +15,8 @@ export const ENV = {
   JWT_REFRESH_SECRET:
     process.env.JWT_REFRESH_SECRET || "fallback_refresh_secret_change_me",
   JWT_REFRESH_EXPIRE: process.env.JWT_REFRESH_EXPIRE || "7d",
+};
+
+module.exports = {
+  ENV,
 };

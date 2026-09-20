@@ -1,12 +1,9 @@
-import jwt from "jsonwebtoken";
-import { ENV } from "../config/environment.js";
-import { HTTP_STATUS } from "../constants/httpStatus.js";
-import { sendError } from "../utils/apiResponse.js";
+const jwt = require("jsonwebtoken");
+const { ENV } = require("../config/environment");
+const { HTTP_STATUS } = require("../constants/httpStatus");
+const { sendError } = require("../utils/apiResponse");
 
-/**
- * Verify JWT Access Token in Authorization header
- */
-export const verifyAuth = (req, res, next) => {
+const verifyAuth = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -37,4 +34,8 @@ export const verifyAuth = (req, res, next) => {
       HTTP_STATUS.UNAUTHORIZED,
     );
   }
+};
+
+module.exports = {
+  verifyAuth,
 };

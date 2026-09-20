@@ -1,22 +1,26 @@
-import React, { lazy } from 'react';
-import MainLayout from '../layouts/MainLayout';
-import AuthGuard from '../components/wrappers/AuthGuard';
-import RoleGuard from '../components/wrappers/RoleGuard';
-import Loadable from '../components/common/Loadable';
-import { ROLES } from '../constants/RbacConstants';
+import React, { lazy } from "react";
+import MainLayout from "../layouts/MainLayout";
+import AuthGuard from "../components/wrappers/AuthGuard";
+import RoleGuard from "../components/wrappers/RoleGuard";
+import Loadable from "../components/common/Loadable";
+import { ROLES } from "../constants/RbacConstants";
 
-// Lazy-loaded application dashboard pages
-const DashboardPage = Loadable(lazy(() => import('../pages/dashboard/DashboardPage')));
-const ThemeShowcasePage = Loadable(lazy(() => import('../pages/dashboard/ThemeShowcasePage')));
-const RbacDemoPage = Loadable(lazy(() => import('../pages/dashboard/RbacDemoPage')));
-const UsersPage = Loadable(lazy(() => import('../pages/users/UsersPage')));
+const DashboardPage = Loadable(
+  lazy(() => import("../pages/dashboard/DashboardPage")),
+);
+const ThemeShowcasePage = Loadable(
+  lazy(() => import("../pages/dashboard/ThemeShowcasePage")),
+);
+const RbacDemoPage = Loadable(
+  lazy(() => import("../pages/dashboard/RbacDemoPage")),
+);
+const UsersPage = Loadable(lazy(() => import("../pages/users/UsersPage")));
+const ProfilePage = Loadable(
+  lazy(() => import("../pages/profile/ProfilePage")),
+);
 
-/**
- * Protected Application Routes
- * Wrapped in AuthGuard (redirects unauthenticated guests to /login)
- */
 export const ProtectedRoutes = {
-  path: '/',
+  path: "/",
   element: (
     <AuthGuard>
       <MainLayout />
@@ -24,18 +28,18 @@ export const ProtectedRoutes = {
   ),
   children: [
     {
-      path: 'dashboard',
+      path: "dashboard",
       children: [
         {
           index: true,
           element: <DashboardPage />,
         },
         {
-          path: 'showcase',
+          path: "showcase",
           element: <ThemeShowcasePage />,
         },
         {
-          path: 'rbac',
+          path: "rbac",
           element: (
             <RoleGuard allowedRoles={[ROLES.ADMIN]} isRoute>
               <RbacDemoPage />
@@ -45,7 +49,7 @@ export const ProtectedRoutes = {
       ],
     },
     {
-      path: 'users',
+      path: "users",
       element: (
         <RoleGuard allowedRoles={[ROLES.ADMIN, ROLES.MANAGER]} isRoute>
           <UsersPage />
@@ -53,8 +57,12 @@ export const ProtectedRoutes = {
       ),
     },
     {
-      path: 'settings',
-      element: <ThemeShowcasePage />,
+      path: "profile",
+      element: <ProfilePage />,
+    },
+    {
+      path: "settings",
+      element: <ProfilePage />,
     },
   ],
 };

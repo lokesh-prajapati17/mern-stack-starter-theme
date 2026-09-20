@@ -499,7 +499,7 @@ Distributed under the **MIT License**. See `LICENSE` for more information.
 
 <div align="center">
 
-Made with ❤️ by [Lokesh Prajapati](https://github.com/lokeshprajapati)
+Made with ❤️ by [Lokesh Prajapati](https://github.com/lokesh-prajapati17)
 
 ⭐ **If you found this boilerplate useful, please give it a star on GitHub!** ⭐
 

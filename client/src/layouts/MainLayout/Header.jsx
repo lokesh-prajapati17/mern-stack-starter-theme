@@ -24,6 +24,7 @@ import {
   LogOut,
   User as UserIcon,
   Shield,
+  Settings,
 } from "lucide-react";
 import { useBreakpoint } from "../../contexts/BreakpointContext";
 import { useThemeMode } from "../../themes/useThemeMode";
@@ -319,13 +320,25 @@ export const Header = () => {
           <MenuItem
             onClick={() => {
               handleCloseProfile();
-              navigate("/dashboard");
+              navigate("/profile");
             }}
           >
             <ListItemIcon>
               <UserIcon size={16} />
             </ListItemIcon>
             <ListItemText primary="My Profile" />
+          </MenuItem>
+
+          <MenuItem
+            onClick={() => {
+              handleCloseProfile();
+              navigate("/settings");
+            }}
+          >
+            <ListItemIcon>
+              <Settings size={16} />
+            </ListItemIcon>
+            <ListItemText primary="Account Settings" />
           </MenuItem>
 
           <MenuItem
