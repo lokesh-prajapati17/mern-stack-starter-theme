@@ -1,4 +1,5 @@
 const express = require("express");
+const helmet = require("helmet");
 const cors = require("cors");
 const { ENV } = require("./config/environment");
 const { connectDB } = require("./config/db");
@@ -43,6 +44,7 @@ const corsOptions = {
   ],
 };
 
+app.use(helmet({ crossOriginResourcePolicy: false }));
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

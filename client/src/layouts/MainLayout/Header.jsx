@@ -33,10 +33,6 @@ import { StatusBadge } from "../../components/common/StatusBadge";
 import { IconButton } from "../../components/common/IconButton";
 import { LAYOUT_CONSTANTS } from "../../constants/LayoutConstants";
 
-/**
- * Top Header Navigation Bar (Arrow function)
- * Spans 100% across the top of the entire screen above both sidebar and content.
- */
 export const Header = () => {
   const theme = useTheme();
   const navigate = useNavigate();
@@ -73,6 +69,15 @@ export const Header = () => {
       color="inherit"
       elevation={0}
       sx={{
+        height: {
+          xs: LAYOUT_CONSTANTS.HEADER_HEIGHT_MOBILE,
+          md: LAYOUT_CONSTANTS.HEADER_HEIGHT_DESKTOP,
+        },
+        maxHeight: {
+          xs: LAYOUT_CONSTANTS.HEADER_HEIGHT_MOBILE,
+          md: LAYOUT_CONSTANTS.HEADER_HEIGHT_DESKTOP,
+        },
+        boxSizing: "border-box",
         bgcolor: "background.header",
         backdropFilter: "blur(12px)",
         borderRadius: 0,
@@ -84,18 +89,13 @@ export const Header = () => {
       <Toolbar
         disableGutters
         sx={{
-          minHeight: {
-            xs: LAYOUT_CONSTANTS.HEADER_HEIGHT_MOBILE,
-            md: LAYOUT_CONSTANTS.HEADER_HEIGHT_DESKTOP,
-          },
-          height: {
-            xs: LAYOUT_CONSTANTS.HEADER_HEIGHT_MOBILE,
-            md: LAYOUT_CONSTANTS.HEADER_HEIGHT_DESKTOP,
-          },
+          minHeight: "0px !important",
+          height: "100%",
           px: { xs: 1.5, sm: 2.5 },
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
+          boxSizing: "border-box",
         }}
       >
         {/* Left Side: Brand Logo & Drawer Toggle */}
@@ -132,7 +132,7 @@ export const Header = () => {
           <Box
             onClick={() => navigate("/dashboard")}
             sx={{
-              display: "flex",
+              display: { xs: "flex", lg: "none" },
               alignItems: "center",
               gap: 1.25,
               cursor: "pointer",

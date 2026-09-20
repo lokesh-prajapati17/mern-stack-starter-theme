@@ -1,6 +1,7 @@
 const express = require("express");
 const authModule = require("./auth");
 const userModule = require("./user");
+const { authLimiter } = require("../middleware/rateLimiter");
 
 const router = express.Router();
 
@@ -15,7 +16,7 @@ router.get("/health", (req, res) => {
   });
 });
 
-router.use("/auth", authModule.routes);
+router.use("/auth", authLimiter, authModule.routes);
 router.use("/users", userModule.routes);
 
 module.exports = router;

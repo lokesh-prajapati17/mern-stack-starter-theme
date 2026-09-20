@@ -38,6 +38,7 @@ export const TextInput = forwardRef(
         required={required}
         disabled={disabled}
         slotProps={{
+          ...props.slotProps,
           input: {
             startAdornment: startIcon ? (
               <InputAdornment position="start" sx={{ color: "text.secondary" }}>
@@ -49,9 +50,20 @@ export const TextInput = forwardRef(
                 {endIcon}
               </InputAdornment>
             ) : undefined,
+            ...props.slotProps?.input,
+          },
+          formHelperText: {
+            sx: { ml: 0, mr: 0, ...props.slotProps?.formHelperText?.sx },
+            ...props.slotProps?.formHelperText,
           },
         }}
-        sx={sx}
+        sx={{
+          "& .MuiFormHelperText-root": {
+            marginLeft: 0,
+            marginRight: 0,
+          },
+          ...sx,
+        }}
         {...props}
       />
     );

@@ -136,7 +136,10 @@ export const ThemeShowcasePage = () => {
       <PageHeader
         title="UI Atoms & Theme Showcase"
         subtitle="Every reusable component — styled exclusively via MUI theme tokens. Zero hardcoded colors or margins."
-        breadcrumbs={[{ label: "Dashboard", path: "/dashboard" }, { label: "Showcase" }]}
+        breadcrumbs={[
+          { label: "Dashboard", path: "/dashboard" },
+          { label: "Showcase" },
+        ]}
         actions={
           <Button
             variant="contained"
@@ -154,10 +157,12 @@ export const ThemeShowcasePage = () => {
           The component library has been extended with 11 new production atoms.
         </AlertBanner>
         <AlertBanner severity="success" dismissible>
-          All components are theme-aware and support dark / light mode automatically.
+          All components are theme-aware and support dark / light mode
+          automatically.
         </AlertBanner>
         <AlertBanner severity="warning" title="Heads Up" dismissible>
-          Always import from <code>../../components/common</code> barrel — never directly from MUI.
+          Always import from <code>../../components/common</code> barrel — never
+          directly from MUI.
         </AlertBanner>
       </Stack>
 
@@ -178,10 +183,40 @@ export const ThemeShowcasePage = () => {
           >
             <Grid container spacing={{ xs: 1.5, sm: 2 }}>
               {[
-                { label: "Total Revenue", value: "84,320", prefix: "$", delta: 12.4, deltaLabel: "vs last month", icon: DollarSign, color: "primary" },
-                { label: "Active Users", value: "3,842", delta: 5.7, deltaLabel: "this week", icon: Users, color: "success" },
-                { label: "Conversion Rate", value: "4.6", suffix: "%", delta: -1.2, deltaLabel: "vs yesterday", icon: TrendingUp, color: "warning" },
-                { label: "Open Tickets", value: "127", delta: 0, deltaLabel: "no change", icon: Package, color: "error" },
+                {
+                  label: "Total Revenue",
+                  value: "84,320",
+                  prefix: "$",
+                  delta: 12.4,
+                  deltaLabel: "vs last month",
+                  icon: DollarSign,
+                  color: "primary",
+                },
+                {
+                  label: "Active Users",
+                  value: "3,842",
+                  delta: 5.7,
+                  deltaLabel: "this week",
+                  icon: Users,
+                  color: "success",
+                },
+                {
+                  label: "Conversion Rate",
+                  value: "4.6",
+                  suffix: "%",
+                  delta: -1.2,
+                  deltaLabel: "vs yesterday",
+                  icon: TrendingUp,
+                  color: "warning",
+                },
+                {
+                  label: "Open Tickets",
+                  value: "127",
+                  delta: 0,
+                  deltaLabel: "no change",
+                  icon: Package,
+                  color: "error",
+                },
               ].map((stat, i) => (
                 <Grid item xs={12} sm={6} md={6} lg={3} key={i}>
                   <StatCard {...stat} />
@@ -189,7 +224,12 @@ export const ThemeShowcasePage = () => {
               ))}
               {/* Loading skeleton — full-width demo row on xs/md, quarter on lg */}
               <Grid item xs={12} md={12} lg={3}>
-                <StatCard label="Loading State" value="—" icon={BarChart2} loading />
+                <StatCard
+                  label="Loading State"
+                  value="—"
+                  icon={BarChart2}
+                  loading
+                />
               </Grid>
             </Grid>
           </CardBox>
@@ -204,27 +244,67 @@ export const ThemeShowcasePage = () => {
           <Stack spacing={2.5}>
             <SectionLabel>Variants & Colors</SectionLabel>
             <Box sx={{ display: "flex", gap: 1.5, flexWrap: "wrap" }}>
-              <Button variant="contained" color="primary" startIcon={<Send size={16} />}>Primary</Button>
-              <Button variant="contained" color="secondary">Secondary</Button>
-              <Button variant="contained" color="success">Success</Button>
-              <Button variant="contained" color="error" startIcon={<Trash2 size={16} />}>Danger</Button>
-              <Button variant="contained" color="warning">Warning</Button>
+              <Button
+                variant="contained"
+                color="primary"
+                startIcon={<Send size={16} />}
+              >
+                Primary
+              </Button>
+              <Button variant="contained" color="secondary">
+                Secondary
+              </Button>
+              <Button variant="contained" color="success">
+                Success
+              </Button>
+              <Button
+                variant="contained"
+                color="error"
+                startIcon={<Trash2 size={16} />}
+              >
+                Danger
+              </Button>
+              <Button variant="contained" color="warning">
+                Warning
+              </Button>
             </Box>
 
             <SectionLabel>Outlined & Text</SectionLabel>
             <Box sx={{ display: "flex", gap: 1.5, flexWrap: "wrap" }}>
-              <Button variant="outlined" color="primary">Outlined</Button>
-              <Button variant="outlined" color="secondary">Neutral</Button>
-              <Button variant="text" color="primary">Text Button</Button>
+              <Button variant="outlined" color="primary">
+                Outlined
+              </Button>
+              <Button variant="outlined" color="secondary">
+                Neutral
+              </Button>
+              <Button variant="text" color="primary">
+                Text Button
+              </Button>
             </Box>
 
             <SectionLabel>States</SectionLabel>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, flexWrap: "wrap" }}>
-              <Button variant="contained" color="primary" loading={btnLoading} onClick={handleTestLoading}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 1.5,
+                flexWrap: "wrap",
+              }}
+            >
+              <Button
+                variant="contained"
+                color="primary"
+                loading={btnLoading}
+                onClick={handleTestLoading}
+              >
                 Click for Loading
               </Button>
-              <Button variant="contained" color="primary" disabled>Disabled</Button>
-              <IconButton title="Notification" color="primary"><Bell size={18} /></IconButton>
+              <Button variant="contained" color="primary" disabled>
+                Disabled
+              </Button>
+              <IconButton title="Notification" color="primary">
+                <Bell size={18} />
+              </IconButton>
             </Box>
           </Stack>
         </CardBox>
@@ -256,7 +336,14 @@ export const ThemeShowcasePage = () => {
               options={selectOptions}
             />
             <Divider />
-            <Box sx={{ display: "flex", alignItems: "center", gap: 3, flexWrap: "wrap" }}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 3,
+                flexWrap: "wrap",
+              }}
+            >
               <CheckboxInput
                 label="Active Checkbox"
                 checked={checkboxValue}
@@ -279,7 +366,14 @@ export const ThemeShowcasePage = () => {
         >
           <Stack spacing={2.5}>
             <SectionLabel>Individual Avatars with Status</SectionLabel>
-            <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap", alignItems: "center" }}>
+            <Box
+              sx={{
+                display: "flex",
+                gap: 2,
+                flexWrap: "wrap",
+                alignItems: "center",
+              }}
+            >
               <Avatar name="Alex Vance" size={48} status="online" />
               <Avatar name="Sarah Kim" size={48} status="away" />
               <Avatar name="Jordan Lee" size={48} status="busy" />
@@ -312,7 +406,14 @@ export const ThemeShowcasePage = () => {
             </Box>
             <SectionLabel>Tag List (chips)</SectionLabel>
             <TagList
-              tags={["React", "Node.js", "MongoDB", "Express", "REST API", "JWT"]}
+              tags={[
+                "React",
+                "Node.js",
+                "MongoDB",
+                "Express",
+                "REST API",
+                "JWT",
+              ]}
               color="primary"
               maxVisible={5}
             />
@@ -330,13 +431,39 @@ export const ThemeShowcasePage = () => {
           divider
         >
           <Stack spacing={2.5}>
-            <ProgressBar label="Storage Used" value={72} color="primary" size="medium" />
-            <ProgressBar label="CPU Load" value={45} color="success" size="medium" />
-            <ProgressBar label="Memory" value={88} color="error" size="medium" />
-            <ProgressBar label="Upload" value={30} color="warning" size="large" />
+            <ProgressBar
+              label="Storage Used"
+              value={72}
+              color="primary"
+              size="medium"
+            />
+            <ProgressBar
+              label="CPU Load"
+              value={45}
+              color="success"
+              size="medium"
+            />
+            <ProgressBar
+              label="Memory"
+              value={88}
+              color="error"
+              size="medium"
+            />
+            <ProgressBar
+              label="Upload"
+              value={30}
+              color="warning"
+              size="large"
+            />
             <Divider />
             <SectionLabel>Indeterminate</SectionLabel>
-            <ProgressBar variant="indeterminate" label="Loading data..." showValue={false} color="info" size="small" />
+            <ProgressBar
+              variant="indeterminate"
+              label="Loading data..."
+              showValue={false}
+              color="info"
+              size="small"
+            />
           </Stack>
         </CardBox>
 
@@ -349,19 +476,27 @@ export const ThemeShowcasePage = () => {
           <Stack spacing={3}>
             <Box>
               <SectionLabel>Stat Skeleton</SectionLabel>
-              <Box sx={{ mt: 1 }}><SkeletonLoader variant="stat" /></Box>
+              <Box sx={{ mt: 1 }}>
+                <SkeletonLoader variant="stat" />
+              </Box>
             </Box>
             <Box>
               <SectionLabel>Profile Skeleton</SectionLabel>
-              <Box sx={{ mt: 1 }}><SkeletonLoader variant="profile" /></Box>
+              <Box sx={{ mt: 1 }}>
+                <SkeletonLoader variant="profile" />
+              </Box>
             </Box>
             <Box>
               <SectionLabel>List Skeleton (3 rows)</SectionLabel>
-              <Box sx={{ mt: 1 }}><SkeletonLoader variant="list" rows={3} /></Box>
+              <Box sx={{ mt: 1 }}>
+                <SkeletonLoader variant="list" rows={3} />
+              </Box>
             </Box>
             <Box>
               <SectionLabel>Table Skeleton</SectionLabel>
-              <Box sx={{ mt: 1 }}><SkeletonLoader variant="table" rows={4} /></Box>
+              <Box sx={{ mt: 1 }}>
+                <SkeletonLoader variant="table" rows={4} />
+              </Box>
             </Box>
           </Stack>
         </CardBox>
@@ -406,8 +541,19 @@ export const ThemeShowcasePage = () => {
           divider
         >
           <Stack spacing={3}>
-            <StepProgress steps={steps} activeStep={activeStep} alternativeLabel />
-            <Box sx={{ display: "flex", justifyContent: "center", gap: 1.5, flexWrap: "wrap" }}>
+            <StepProgress
+              steps={steps}
+              activeStep={activeStep}
+              alternativeLabel
+            />
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                gap: 1.5,
+                flexWrap: "wrap",
+              }}
+            >
               <Button
                 variant="outlined"
                 color="secondary"
@@ -422,7 +568,9 @@ export const ThemeShowcasePage = () => {
                 color="primary"
                 size="small"
                 disabled={activeStep === steps.length - 1}
-                onClick={() => setActiveStep((s) => Math.min(steps.length - 1, s + 1))}
+                onClick={() =>
+                  setActiveStep((s) => Math.min(steps.length - 1, s + 1))
+                }
               >
                 {activeStep === steps.length - 2 ? "Submit" : "Next"}
               </Button>
@@ -460,7 +608,9 @@ export const ThemeShowcasePage = () => {
                 sx={{ mb: 2.5 }}
                 onClose={() => setDynamicFormSubmitted(null)}
               >
-                Profile successfully validated & updated: {dynamicFormSubmitted.name} ({dynamicFormSubmitted.email}) — Role: {dynamicFormSubmitted.role}
+                Profile successfully validated & updated:{" "}
+                {dynamicFormSubmitted.name} ({dynamicFormSubmitted.email}) —
+                Role: {dynamicFormSubmitted.role}
               </AlertBanner>
             )}
             <DynamicForm
@@ -511,7 +661,8 @@ export const ThemeShowcasePage = () => {
                 {
                   name: "notifications",
                   label: "Email Notifications",
-                  description: "Receive instant updates on team activity and security alerts",
+                  description:
+                    "Receive instant updates on team activity and security alerts",
                   type: "switch",
                   grid: { xs: 12 },
                 },
@@ -556,7 +707,7 @@ export const ThemeShowcasePage = () => {
                       type: "text",
                       required: true,
                       grid: { xs: 12, sm: 6 },
-                      placeholder: "Acme Corp",
+                      placeholder: "demo pvt. ltd.",
                     },
                     {
                       name: "workEmail",
@@ -564,7 +715,7 @@ export const ThemeShowcasePage = () => {
                       type: "email",
                       required: true,
                       grid: { xs: 12, sm: 6 },
-                      placeholder: "contact@acme.com",
+                      placeholder: "contact@demo.com",
                     },
                     {
                       name: "teamSize",
@@ -584,7 +735,8 @@ export const ThemeShowcasePage = () => {
                 {
                   id: "role",
                   label: "Role & Goals",
-                  description: "Define your departmental focus and primary objective",
+                  description:
+                    "Define your departmental focus and primary objective",
                   validationSchema: wizardStep2Schema,
                   fields: [
                     {
@@ -615,8 +767,14 @@ export const ThemeShowcasePage = () => {
                       required: true,
                       grid: { xs: 12 },
                       options: [
-                        { value: "build_app", label: "Build enterprise dashboard from boilerplate" },
-                        { value: "team_portal", label: "Internal employee management system" },
+                        {
+                          value: "build_app",
+                          label: "Build enterprise dashboard from boilerplate",
+                        },
+                        {
+                          value: "team_portal",
+                          label: "Internal employee management system",
+                        },
                         { value: "saas_mvp", label: "Rapid SaaS MVP launch" },
                       ],
                     },
@@ -625,7 +783,8 @@ export const ThemeShowcasePage = () => {
                 {
                   id: "plan",
                   label: "Plan & Confirmation",
-                  description: "Select subscription tier and finalize registration",
+                  description:
+                    "Select subscription tier and finalize registration",
                   validationSchema: wizardStep3Schema,
                   fields: [
                     {
@@ -653,7 +812,8 @@ export const ThemeShowcasePage = () => {
                     },
                     {
                       name: "agreePolicies",
-                      label: "I confirm all details are accurate and accept platform policies",
+                      label:
+                        "I confirm all details are accurate and accept platform policies",
                       type: "checkbox",
                       grid: { xs: 12 },
                     },
@@ -661,8 +821,8 @@ export const ThemeShowcasePage = () => {
                 },
               ]}
               initialValues={{
-                companyName: "Acme Innovations",
-                workEmail: "admin@acme.io",
+                companyName: "demo pvt. ltd",
+                workEmail: "admin@demo.io",
                 teamSize: "11-50",
                 roleTitle: "Staff Software Engineer",
                 department: "engineering",
@@ -687,13 +847,28 @@ export const ThemeShowcasePage = () => {
           divider
         >
           <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5}>
-            <Button variant="contained" color="primary" fullWidth onClick={() => setModalOpen(true)}>
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              onClick={() => setModalOpen(true)}
+            >
               Open Modal
             </Button>
-            <Button variant="outlined" color="error" fullWidth onClick={() => setConfirmOpen(true)}>
+            <Button
+              variant="outlined"
+              color="error"
+              fullWidth
+              onClick={() => setConfirmOpen(true)}
+            >
               Confirm Dialog
             </Button>
-            <Button variant="outlined" color="secondary" fullWidth onClick={() => setSidePanelOpen(true)}>
+            <Button
+              variant="outlined"
+              color="secondary"
+              fullWidth
+              onClick={() => setSidePanelOpen(true)}
+            >
               Side Panel
             </Button>
           </Stack>
@@ -821,10 +996,18 @@ export const ThemeShowcasePage = () => {
         subtitle="This dialog inherits theme surface elevations and borders."
         actions={
           <Stack direction="row" spacing={1.5}>
-            <Button variant="outlined" color="secondary" onClick={() => setModalOpen(false)}>
+            <Button
+              variant="outlined"
+              color="secondary"
+              onClick={() => setModalOpen(false)}
+            >
               Cancel
             </Button>
-            <Button variant="contained" color="primary" onClick={() => setModalOpen(false)}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => setModalOpen(false)}
+            >
               Save Changes
             </Button>
           </Stack>

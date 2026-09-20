@@ -28,8 +28,14 @@ export const Input = (theme) => {
         root: {
           fontSize: "0.875rem",
           color: theme.palette.text.secondary,
-          "&.Mui-focused": {
+          "&.Mui-focused:not(.Mui-error)": {
             color: theme.palette.primary.main,
+          },
+          "&.Mui-error": {
+            color: theme.palette.error.main,
+          },
+          "&.Mui-focused.Mui-error": {
+            color: theme.palette.error.main,
           },
         },
         outlined: {
@@ -55,7 +61,7 @@ export const Input = (theme) => {
           "&:hover .MuiOutlinedInput-notchedOutline": {
             borderColor: theme.palette.text.secondary,
           },
-          "&.Mui-focused": {
+          "&.Mui-focused:not(.Mui-error)": {
             "& .MuiOutlinedInput-notchedOutline": {
               borderWidth: 1.5,
               borderColor: theme.palette.primary.main,
@@ -67,6 +73,10 @@ export const Input = (theme) => {
               borderColor: theme.palette.error.main,
             },
             "&.Mui-focused": {
+              "& .MuiOutlinedInput-notchedOutline": {
+                borderWidth: 1.5,
+                borderColor: theme.palette.error.main,
+              },
               boxShadow: `0 0 0 3px ${alpha(theme.palette.error.main, 0.18)}`,
             },
           },
@@ -81,6 +91,16 @@ export const Input = (theme) => {
         root: {
           fontSize: "0.75rem",
           marginTop: "4px",
+          marginLeft: 0,
+          marginRight: 0,
+          "&.MuiFormHelperText-contained": {
+            marginLeft: 0,
+            marginRight: 0,
+          },
+        },
+        contained: {
+          marginLeft: 0,
+          marginRight: 0,
         },
       },
     },

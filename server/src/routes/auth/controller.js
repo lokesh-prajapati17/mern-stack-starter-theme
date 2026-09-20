@@ -147,16 +147,22 @@ const getMe = async (req, res) => {
 };
 
 const updateProfile = async (req, res) => {
-  const { name, avatar } = req.body;
-  const user = await User.findById(req.user.id);
+  const { role, status, email } = req.body;
+  if (role || status || email) {
+    delete req.body.role;
+    delete req.body.status;
+    delete req.body.email;
+  }
+
+  const user = await User.findByIdAndUpdate(req.user.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
+
   if (!user) {
     return sendError(res, "User not found", HTTP_STATUS.NOT_FOUND);
   }
 
-  if (name) user.name = name.trim();
-  if (avatar !== undefined) user.avatar = avatar;
-
-  await user.save();
   return sendSuccess(res, user, "Profile updated successfully");
 };
 
